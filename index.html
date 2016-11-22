@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Make table</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <style>
+        img {
+            cursor: pointer;
+            position: relative;
+        }
+        img:hover{
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Gallerie aléatoire : </h1>
+    <div class="row">
+        <div class="col-xs-2">Lignes : </div>
+        <div class="col-xs-2"><input type="text" id="l" class="form-control text-right" value="4" /></div>
+    </div>
+    <div class="row">
+        <div class="col-xs-2">Colonnes : </div>
+        <div class="col-xs-2"><input type="text" id="c" class="form-control text-right" value="4" /></div>
+    </div>
+    <div class="row">
+        <div class="col-xs-4 col-xs-offset-2">
+            <br><button onclick="afficher()" class="btn btn-primary ">Afficher</button>
+        </div>
+    </div>
+    <br>
+    <div id="gallerie"></div>
+</div>
+
+<script>
+    function afficher(){
+        var lignes = document.getElementById('l').value;
+        var colonnes = document.getElementById('c').value;
+        var width = parseInt(1200/colonnes);
+
+        function makeTable(l, c){
+
+            var table = "<table class='table table-bordered'>";
+            for(var i=0; i<l; i++){
+                table += "<tr id='row_" + i + "'>";
+                    for(var j=0; j<c; j++){
+                        var src = "http://lorempixel.com/" + width + "/" + width + "?" + i + j;
+                        table +=    "<td >" +
+                                    "<img onclick='moveMe(" + i + ")' class='img-responsive' src='" + src + "' />" +
+                                    "</td>";
+                    }
+                table += "</tr>";
+            }
+            table += "</table>";
+            return table;
+        }
+
+        document.getElementById('gallerie').innerHTML = makeTable(lignes, colonnes);
+    }
+    function moveMe(num) {
+        var i, j;
+        // La méthode querySelectorAll retourne tous les élments
+        // qui vérifient le sélecteur CSS passé en paramètre.
+        var r = document.querySelectorAll('#row_' + num + ' img' );
+        var images = [];
+        var parents = [];
+        for(i=0; i<r.length; i++){
+            parents[i] = r[i].parentNode;
+            parents[i].removeChild(r[i]);
+            images[i] = r[i];
+        }
+        images.push(images.shift());
+        for(j=0; j<r.length; j++){
+            parents[j].appendChild(images[j]);
+        }
+    }
+</script>
+</body>
+</html>

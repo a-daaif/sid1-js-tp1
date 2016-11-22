@@ -1,0 +1,24 @@
+{
+  "name": "sid1-js-td1",
+  "authors": [
+    "a-daaif <a@daaif.net>"
+  ],
+  "description": "td 1 javascript",
+  "main": "index.html",
+  "keywords": [
+    "js",
+    "html"
+  ],
+  "license": "MIT",
+  "homepage": "http://www.daaif.net",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}
